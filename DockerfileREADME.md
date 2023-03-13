@@ -1,46 +1,48 @@
-# 制作docker镜像
+# Creating Docker Image
 
-**背景**
+**Background**
 
-偶然间看到作者的程序，感觉作者做的很炫酷，自己也想部署一个。 作者只提供服务器部署方式，自己萌生了制作了镜像版本的想法，根据作者的部署说明，制作一版docker镜像，自己亲测，可在linux docker环境下部署运行。docker镜像使用很方便快捷，欢迎大家使用。下面详细记录镜像制作和使用说明。  
+While browsing through the author's program, I felt that the program was very cool, and I also wanted to deploy one by myself. The author only provided a server deployment method, so I came up with the idea of creating an image version. Following the author's deployment instructions, I created a version of the Docker image and tested it myself. It can be deployed and run in a Linux Docker environment. Docker images are very convenient and fast to use. Everyone is welcome to use them. The following is a detailed record of the image creation and usage instructions.
 
-最后，非常感谢作者提供的程序。
+Finally, I would like to thank the author for providing the program.
 
-**使用说明**
+**Usage Instructions**
 
-1. 将源代码打包成 tar.gz 格式
+1. Package the source code into a tar.gz format.
 
-```shel
-tar -czvf lottery.tar.gz lottery/
-```
+   ```shell
+   tar -czvf lottery.tar.gz lottery/
+   ```
 
-2. 创建Dockerfile、构建镜像。Dockerfile见程序根目录的Dockerfile文件
+2. Create a Dockerfile and build the image. The Dockerfile can be found in the root directory of the program.
 
    ```shell
    cp Dockerfile .
    docker build -t lucky:v01 .
    ```
 
-3. 运行dockers ，对外服务端口 28888
+3. Run the dockers, with the external service port 28888.
 
-   - 方法一、无挂载文件
-
-     ```shell
-     docker run -d -p 28888:8888  --name luckyGame  lucky:v01
-     ```
-
-     
-
-   - 方法二、 将本地excel目录（比如当前目录"$PWD"）挂载到容器中的excel 目录上
+   - Method 1, with no mounted files.
 
      ```shell
-     docker run -d -p 28888:8888  -v /home/docker/lottery/config/:/lottery/server/data/  --name luckyGame  lucky:v01
+     docker run -d -p 28888:8888 --name luckyGame lucky:v01
      ```
 
-4.  访问服务（这里使用本地ip地址，可自行换成实际服务ip）
+   - Method 2, mount the local Excel directory (for example, the current directory "$PWD") to the Excel directory in the container.
+
+     ```shell
+     docker run -d -p 28888:8888 -v /home/docker/lottery/config/:/lottery/server/data/ --name luckyGame lucky:v01
+     ```
+
+4. Access the service (here using the local IP address, you can replace it with the actual service IP).
 
    http://127.0.0.1:28888
 
-5.  我的打包镜像已经上传到docker, 如下
+5. My packaged image has been uploaded to Docker, as follows:
+
    https://hub.docker.com/r/yiliangjianghu/luckygame
+
+   ```shell
    docker pull yiliangjianghu/luckygame
+   ```
