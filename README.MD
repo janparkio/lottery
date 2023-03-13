@@ -2,7 +2,7 @@
 
 Lottery program for annual meeting, 3D ball lottery, supports prize information configuration, participants information `Excel` import, lottery results `Excel` export
 
-> Experience now: [https://janparkiogithub.io/lottery/](https://janparkiogithub.io/lottery/)
+> Experience now: [https://janparkio.github.io/lottery/](https://janparkio.github.io/lottery/)
 
 ## Technology
 
