@@ -1,35 +1,30 @@
-name: Node-Express-Three.js CI
-
+name: Lottery App CI
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - main
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Push Docker image to container registry
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: my-image-name:$(date +%s)
-    - name: Deploy Docker container to production
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        script: |
-          docker stop my-container-name || true
-          docker rm my-container-name || true
-          docker pull my-image-name:$(date +%s)
-          docker run -d -p 8888:8888 --name my-container-name my-image-name:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.0'
+      - name: Install dependencies
+        run: |
+          cd lottery/server && npm install
+          cd ../product && npm install
+      - name: Build app
+        run: |
+          cd lottery && sed -i '/openBrowser/ d' ./server/server.js
+          cd product && npm run build
+      - name: Start app
+        run: |
+          cd lottery/product && npm run serve
+        env:
+          PORT: 8888
+    ports:
+      - 8888:8888
