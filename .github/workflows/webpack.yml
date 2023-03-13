@@ -6,6 +6,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      lottery-app:
+        image: node:16.14.0-alpine3.15
+        ports:
+          - 8888:8888
+        options: --name lottery-app
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,8 +29,4 @@ jobs:
           cd product && npm run build
       - name: Start app
         run: |
-          cd lottery/product && npm run serve
-        env:
-          PORT: 8888
-    ports:
-      - 8888:8888
+          docker start lottery-app || docker run -d --rm --name lottery-app -p 8888:8888 -v $(pwd)/lottery:/lottery node:16.14.0-alpine3.15 sh -c "chown -R root /lottery && cd /lottery/server && npm install && cd ../product && npm install && npm run build && cd ../product && npm run serve"
