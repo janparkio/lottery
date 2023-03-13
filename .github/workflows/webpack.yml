@@ -33,7 +33,7 @@ jobs:
 
     - name: Build app
       run: |
-        cd lottery && sed -i '/openBrowser/ d' ./server/server.js
+        sed -i '/openBrowser/ d' ./server/server.js && cd ./product && npm run build
         cd product
         && npm run build
 
