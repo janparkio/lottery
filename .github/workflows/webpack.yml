@@ -19,10 +19,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.14.0'
-      - name: Install dependencies
+      - name: Install dependencies server
         run: |
           cd lottery/server && npm install
-          cd ../product && npm install
+      - name: Install dependencies product
+        run: |
+          cd lottery/product && npm install
       - name: Build app
         run: |
           cd lottery && sed -i '/openBrowser/ d' ./server/server.js
