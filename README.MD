@@ -1,28 +1,26 @@
-# 抽奖程序
+# Lottery Program
 
-年会抽奖程序，3D 球体抽奖，支持奖品信息配置，参与抽奖人员信息`Excel`导入，抽奖结果`Excel`导出
+Lottery program for annual meeting, 3D ball lottery, supports prize information configuration, participants information `Excel` import, lottery results `Excel` export
 
-如果该程序对你有帮助😎😎😎，希望给个⭐**star**⭐喔。😘😘😘😍🥰🎉🎈🎃
+> Experience now: [https://janparkiogithub.io/lottery/](https://janparkiogithub.io/lottery/)
 
-> 立即体验一下： [https://moshang-xc.github.io/lottery/](https://moshang-xc.github.io/lottery/)
+## Technology
 
-## 技术
+Technology: Node + Express + Three.js
 
-技术：Node + Express + Three.js
+Implemented in the backend with `Express`
 
-后台通过`Express`实现
+The frontend lottery interface is implemented with `Three.js` for 3D lottery ball, using the official 3D example of `Three.js`
 
-前端抽奖界面通过`Three.js`实现 3D 抽奖球，引用了`Three.js`的官方 3D 示例
+## Function Description:
 
-## 功能描述：
+1. The lottery result can be saved and downloaded to excel in real time 🎉
+2. People who have already been drawn are not allowed to participate in the draw again. If the drawn person is not present, they can draw again 🎁
+3. If the server is refreshed or closed, the currently drawn data will be saved, and the data will not be reset. Only by clicking the reset button on the interface can the lottery data be reset 🧧
+4. The number of prizes drawn each time can be configured 🎈
+5. After all the prizes have been drawn, you can continue to draw special prizes (for example: red envelopes, additional prizes, etc.). At this time, only one prize is drawn by default 🧨
 
-1. 可将抽奖结果进行保存实时下载到 excel 中🎉
-2. 已抽取人员不在参与抽取，抽中的人员不在现场可以重新抽取🎁
-3. 刷新或者关掉服务器，会保存当前已抽取的数据，不会进行数据重置，只有点击界面上的重置按钮，才能重置抽奖数据🧧
-4. 每次抽取的奖品数目可配置🎈
-5. 抽取完所有奖品后还可以继续抽取特别奖(例如：现在抽取红包，追加的奖品等)，此时默认一次抽取一个🧨
-
-## 预览
+## Preview
 
 ![lottery.gif](https://raw.githubusercontent.com/moshang-xc/blog/master/share/lottery.gif)
 
@@ -32,33 +30,33 @@
 
 ![end.jpg](https://raw.githubusercontent.com/moshang-xc/blog/master/share/end.jpg)
 
-## 安装
+## Installation
 
 ```
-git clone https://github.com/moshang-xc/lottery.git
+git clone https://github.com/janparkio/lottery.git
 
 cd lottery
 
-# 服务端插件安装
+# Server-side plug-in installation
 cd server
 npm install
 
-# 前端插件安装
+# Front-end plug-in installation
 cd ../product
 npm install
 
-# 打包
+# Packaging
 npm run build
 
-# 运行
+# Running
 npm run serve
 
-# 开发调试
+# Development debugging
 npm run dev
 
 ```
 
-## 目录结构
+## Directory structure
 
 ```
 Lottery
@@ -78,51 +76,51 @@ Lottery
 │   └── package.js
 ```
 
-> 1. product 为前端页面目录
-> 2. package.josn web 项目配置文件
-> 3. webpack.config.js 打包配置文件
-> 4. server 为服务器目录
-> 5. config 为奖品信息的配置文件
+> 1. product is the frontend page directory
+> 2. package.josn web project configuration file
+> 3. webpack.config.js packaging configuration file
+> 4. server is the server directory
+> 5. config is the configuration file for prize information
 
-## 配置信息
+## Configuration information
 
-### 抽奖用户信息配置
+### Configuration of lottery user information
 
-抽奖用户信息在**`server/data/user.xlsx`**文件中，按文件格式进行填充，不能修改文件名和列头
+The lottery user information is in the **`server/data/user.xlsx`** file, which should be filled in according to the file format, and the file name and column header cannot be modified.
 
-### 奖品信息配置
+### Configuration of prize information
 
-奖品的配置信息填写在**server/config.js**文件中，不能修改文件名。
+The configuration information of the prize is filled in the **server/config.js** file, and the file name cannot be modified.
 
-**其中奖品 prizes 的配置描述如下：**
+**The configuration description of the prize "prizes" is as follows:**
 
-| 参数  | 值类型 | 描述                                                         |
-| ----- | ------ | ------------------------------------------------------------ |
-| type  | Number | 奖品类型，唯一标识，0 是默认特别奖的占位符，其它奖品不可使用 |
-| count | Number | 奖品数量                                                     |
-| text  | String | 奖项名称                                                     |
-| title | String | 奖品描述                                                     |
-| img   | String | 奖品的图片地址，图片在**img**目录下                          |
+| Parameter | Value type | Description                                                  |
+| --------- | --------- | ------------------------------------------------------------ |
+| type      | Number    | Prize type, unique identifier, 0 is the placeholder for the default special prize, other prizes cannot be used |
+| count     | Number    | Number of prizes                                             |
+| text      | String    | Prize name                                                   |
+| title     | String    | Prize description                                            |
+| img       | String    | Prize image address, image in the **img** directory          |
 
 ```js
-// 奖品信息，第一项为预留项不可修改，其他项可根据需要修改
+// Prize information, the first item is reserved and cannot be modified, other items can be modified as needed
 let prizes = [{
         type: 0,
         count: 1000,
         title: "",
-        text: "特别奖"
+        text: "Special prize"
     },
     {
         type: 1,
         count: 2,
-        text: "特等奖",
-        title: "神秘大礼",
+        text: "Grand prize",
+        title: "Mystery gift",
         img: "../img/secrit.jpg"
     },
     {
         type: 2,
         count: 5,
-        text: "一等奖",
+        text: "First prize",
         title: "Mac Pro",
         img: "../img/mbp.jpg"
     }
@@ -130,22 +128,22 @@ let prizes = [{
 ];
 ```
 
-### 奖品每次抽取个数配置
+### Configuration of the number of prizes drawn each time
 
-**EACH_COUNT**用于配置每次的抽奖个数，与 prizes 奖品一一对应，例如上面的奖品配置对应的抽奖个数配置如下：
+**EACH_COUNT** is used to configure the number of prizes drawn each time, corresponding to the prizes one by one. For example, the prize configuration above corresponds to the following prize draw configuration:
 
 ```js
 const EACH_COUNT = [1, 1, 5];
 ```
 
-如上配置，表示一次抽取的奖品个数顺序为：特别奖每次抽一个，特等奖每次抽一个，一等奖每次抽五个
+As configured above, the order of the number of prizes drawn each time is: the special prize is drawn once, the grand prize is drawn once, and five first prizes are drawn each time.
 
-### 企业标识配置
+### Enterprise identity configuration
 
-该标识用于显示在抽奖卡片上。
+This identity is used to display on the lottery card.
 
 ```js
-const COMPANY = "MoShang";
+const COMPANY = "Eleve";
 ```
 ## License
 MIT
