@@ -144,6 +144,7 @@ let addQipao = (() => {
     }
 
     qipao.start(text);
+    console.log(text);
   };
 })();
 

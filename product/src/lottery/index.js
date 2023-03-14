@@ -214,7 +214,7 @@ function bindEvent() {
         rotateObj.stop();
         btns.lottery.innerHTML = "Comenzar";
       } else {
-        addQipao("La lotería está siendo sorteada, dibuja despacio~~");
+        addQipao("La lotería está siendo sorteada~~");
       }
       return false;
     }
@@ -511,7 +511,7 @@ function selectCard(duration = 600) {
 
   let text = currentLuckys.map(item => item[1]);
   addQipao(
-    `Felicidades ${text.join("、")} por conseguir ${currentPrize.title}, El nuevo año debe ser próspero.`
+    `Felicidades ${text.join("、")} por conseguir ${currentPrize.title}.`
   );
 
   selectedCardIndex.forEach((cardIndex, index) => {
